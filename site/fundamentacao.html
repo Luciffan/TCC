@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCC - Fundamentação Teórica</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Robô Autobalanceado com PID</h1>
+            <ul>
+                <li><a href="index.html">Introdução</a></li>
+                <li><a href="fundamentacao.html" class="active">Fundamentação Teórica</a></li>
+                <li><a href="metodologia.html">Metodologia</a></li>
+                <li><a href="resultados.html">Resultados</a></li>
+                <li><a href="conclusao.html">Conclusão</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="fundamentacao">
+            <h2>Fundamentação Teórica</h2>
+            <p>Para compreender a 'mágica' por trás do equilíbrio do robô, detalhamos os componentes eletrônicos e os conceitos de controle utilizados.</p>
+            
+            <h3>Arduino</h3>
+            <p>O cérebro do nosso robô é o Arduino, uma plataforma de prototipagem baseada em um microcontrolador. Ele funciona como um mini-computador de propósito específico, com processador, memória e pinos de entrada e saída. O Arduino é projetado para rodar um único código em um loop infinito, o que o torna perfeito para tarefas de controle em tempo real como a nossa.</p>
+            <img src="imagens/img1.png" alt="Arduino" style="display: block; margin: 0 auto; width: 300px;">
+
+            <h3>Ponte H e Motores DC</h3>
+            <p>A Ponte H, através do driver L298N, controla o sentido de rotação e a velocidade dos motores de corrente contínua (CC). Alterando a polaridade da tensão aplicada ao motor, ela inverte a rotação. Com a Modulação por Largura de Pulso (PWM), também é possível ajustar a tensão média, controlando a velocidade e garantindo um controle preciso do movimento.</p>
+
+            <h3>Sensor MPU-6050</h3>
+            <p>O MPU-6050 é uma unidade de medição inercial (IMU) que combina um acelerômetro e um giroscópio. O acelerômetro mede inclinações com base na gravidade, enquanto o giroscópio mede a velocidade de rotação. Como o acelerômetro é sensível a vibrações e o giroscópio acumula erros ao longo do tempo, utilizamos um Filtro Complementar para fundir os dados de ambos, obtendo uma medição de ângulo limpa, estável e confiável para o sistema de controle.</p>
+            <img src="imagens/img2.png" alt="Arduino" style="display: block; margin: 0 auto; width: 300px;">
+
+            <h3>O Algoritmo PID</h3>
+            <p>O controlador PID (Proporcional, Integral, Derivativo) é um sistema que corrige erros para manter a estabilidade. Ele compara constantemente o valor medido (inclinação do robô) com um valor de referência (posição vertical) e calcula o erro. A partir desse erro, ele utiliza três componentes para corrigir a saída:</p>
+            <ul>
+                <li><strong>Proporcional (P):</strong> Reage ao erro atual. Quanto maior a inclinação, maior a correção.</li>
+                <li><strong>Integral (I):</strong> Atua sobre o erro acumulado, eliminando pequenos desvios persistentes.</li>
+                <li><strong>Derivativo (D):</strong> Reage à taxa de variação do erro, antecipando tendências e suavizando a resposta para evitar oscilações.</li>
+            </ul>
+            <p>A ação combinada, ajustada pelas constantes Kp, Ki e Kd, permite que o sistema se mantenha estável, preciso e responsivo.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="autores">
+            <p>Cauã S. Vieira | Frank E. C. Barbosa | Gabriel B. Laytynher | Gabriel M. Gomes</p>
+        </div>
+        <hr style="width:50%; border-color: #555;">
+        <div class="orientador">
+            <p><strong>Orientador:</strong> Prof. Joel Junior Cordeiro</p>
+        </div>
+        <p>&copy; 2025</p>
+    </footer>
+
+</body>
+</html>

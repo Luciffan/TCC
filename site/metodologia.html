@@ -1,0 +1,51 @@
+<html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCC - Metodologia</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Robô Autobalanceado com PID</h1>
+            <ul>
+                <li><a href="index.html">Introdução</a></li>
+                <li><a href="fundamentacao.html">Fundamentação Teórica</a></li>
+                <li><a href="metodologia.html" class="active">Metodologia</a></li>
+                <li><a href="resultados.html">Resultados</a></li>
+                <li><a href="conclusao.html">Conclusão</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="metodologia">
+            <h2>Metodologia</h2>
+            <p>Nossa metodologia foi pensada para ser prática e direta, cobrindo todas as etapas desde a construção do hardware até a validação do controle.</p>
+
+            <h3>1. Construção do Hardware</h3>
+            <p>A primeira etapa, já concluída, foi a construção do hardware. Projetamos e montamos um chassi de papelão com três níveis por ser leve, barato e fácil de modificar. O posicionamento das peças foi estratégico para a estabilização: as baterias na base (centro de gravidade baixo), a eletrônica no meio, e o sensor MPU-6050 no topo para a melhor leitura da inclinação. O hardware está montado e funcional.</p>
+
+            <h3>2. Software</h3>
+            <p>Nosso trabalho inicial de software consistiu em pesquisar e selecionar um código-base de código aberto. A abordagem metodológica é estudar, compreender e adaptar este código para a nossa realidade de hardware e objetivos. Já realizamos uma análise detalhada da estrutura, mapeando as funções principais (leitura do sensor, lógica PID e comando dos motores). O trabalho atual consiste em adaptar o código, alterando pinos de conexão e inserindo parâmetros de calibração do nosso sensor.</p>
+
+            <h3>3. Implementação e Testes</h3>
+            <p>A próxima fase, e a mais crítica, é a de testes. Primeiramente, realizaremos a calibração do sensor MPU-6050 para corrigir erros de fábrica. Em seguida, iniciaremos o processo de <strong>Sintonia Empírica</strong>, onde, através de testes iterativos e observação direta, ajustaremos os ganhos Kp e Kd. Iremos monitorar os dados em tempo real, testando valores até encontrar a combinação que proporcione a estabilidade ideal do sistema.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="autores">
+            <p>Cauã S. Vieira | Frank E. C. Barbosa | Gabriel B. Laytynher | Gabriel M. Gomes</p>
+        </div>
+        <hr style="width:50%; border-color: #555;">
+        <div class="orientador">
+            <p><strong>Orientador:</strong> Prof. Joel Junior Cordeiro</p>
+        </div>
+        <p>&copy; 2025</p>
+    </footer>
+</body>
+</html>
