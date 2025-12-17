@@ -20,6 +20,39 @@
         </nav>
     </header>
 
+    <main>
+        <section id="resultados">
+            <h2>Resultados e Discussão</h2>
+            <p>Os testes práticos revelaram uma discrepância entre a simulação teórica ideal e a realidade física de componentes de baixo custo. Abaixo detalhamos os comportamentos observados.</p>
+
+            <h3>1. Validação dos Componentes</h3>
+            <p>A integração eletrônica foi bem-sucedida. O sensor <strong>MPU-6050</strong>, utilizando o algoritmo DMP, forneceu leituras de ângulo limpas e estáveis. No entanto, identificamos uma limitação crítica nos motores:</p>
+            <ul>
+                <li><strong>Zona Morta (Deadzone):</strong> O driver L298N exigia um sinal PWM mínimo (entre 40 e 60 de 255) apenas para vencer a inércia e começar a girar as rodas. Isso exigiu compensações no software para evitar que o robô parasse de responder em correções sutis.</li>
+            </ul>
+
+            <h3>2. Dinâmica do Controle PID</h3>
+            <p>Durante a sintonia empírica dos ganhos (Kp, Ki, Kd), observamos comportamentos distintos:</p>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <h4>Ação Proporcional (P)</h4>
+                    <p>Com ganho baixo, o robô caía pois o torque era menor que a gravidade. Com ganho alto, a reação era violenta, causando oscilações excessivas (overshoot).</p>
+                </div>
+                <div class="grid-item">
+                    <h4>Ação Derivativa (D)</h4>
+                    <p>Teoricamente serviria para amortecer oscilações. Na prática, o termo derivativo amplificou os ruídos de vibração do chassi, causando "tremores" (jitter) nas rodas.</p>
+                </div>
+            </div>
+
+            <h3>3. Limitações Físicas Críticas</h3>
+            <p>A estabilização plena e perfeita foi mitigada por dois fatores construtivos:</p>
+            <ul>
+                <li><strong>Folga Mecânica (Backlash):</strong> Os motores amarelos de plástico possuem uma folga significativa nas engrenagens. Ao inverter a rotação para equilibrar, existe um "atraso" até a roda tracionar. Esse atraso temporal reduz a margem de estabilidade do sistema.</li>
+                <li><strong>Ruído Estrutural:</strong> A falta de rigidez absoluta do chassi, somada à vibração dos motores, gerou ruídos que o acelerômetro captou. Isso confundiu o controlador em altas frequências, dificultando um equilíbrio suave.</li>
+            </ul>
+        </section>
+    </main>
+
     <footer>
         <div class="autores">
             <p>Cauã S. Vieira | Frank E. C. Barbosa | Gabriel B. Laytynher | Gabriel M. Gomes</p>
