@@ -9,10 +9,10 @@
 <body>
     <header>
         <nav>
-            <h1>Robô Autobalanceado com PID</h1>
+            <h1>Robô Autobalanceado</h1>
             <ul>
                 <li><a href="../index.html">Introdução</a></li>
-                <li><a href="fundamentacao.html" class="active">Fundamentação Teórica</a></li>
+                <li><a href="fundamentacao.html" class="active">Fundamentação</a></li>
                 <li><a href="metodologia.html">Metodologia</a></li>
                 <li><a href="resultados.html">Resultados</a></li>
                 <li><a href="conclusao.html">Conclusão</a></li>
@@ -22,21 +22,56 @@
 
     <main>
         <section id="fundamentacao">
-            <h2>Fundamentação Teórica</h2>
-            <p>Para compreender a 'mágica' por trás do equilíbrio do robô, detalhamos os componentes eletrônicos e os conceitos de controle utilizados.</p>
+            <h2>Fundamentação Teórica e Hardware</h2>
+            <p>A estabilidade de um sistema de pêndulo invertido exige uma sintonia perfeita entre a física do movimento e a eletrônica de controle. Abaixo, detalhamos a função técnica de cada componente.</p>
             
-            <h3>Arduino</h3>
-            <p>O cérebro do nosso robô é o Arduino, uma plataforma de prototipagem baseada em um microcontrolador. Ele funciona como um mini-computador de propósito específico, com processador, memória e pinos de entrada e saída. O Arduino é projetado para rodar um único código em um loop infinito, o que o torna perfeito para tarefas de controle em tempo real como a nossa.</p>
-            <img src="imagens/img1.png" alt="Arduino" style="display: block; margin: 0 auto; width: 300px;">
+            <div class="grid-container" style="margin-bottom: 40px; grid-template-columns: 2fr 1fr; align-items: start;">
+                <div>
+                    <h3>1. Microcontrolador: Arduino Uno (ATmega328P)</h3>
+                    <p>O Arduino atua como a unidade de processamento central (CPU). Diferente de um computador comum, ele executa um único programa em <em>loop</em> contínuo. Suas funções críticas neste projeto são:</p>
+                    <ul>
+                        <li><strong>Interface I2C:</strong> Comunicação digital rápida com o sensor MPU-6050 para leitura de dados.</li>
+                        <li><strong>Cálculo Flutuante:</strong> Processamento matemático do algoritmo PID a cada poucos milissegundos.</li>
+                        <li><strong>Geração de PWM:</strong> Envio de sinais de <em>Modulação por Largura de Pulso</em> para os motores. O Arduino não varia a voltagem, mas sim "liga e desliga" a porta digital milhares de vezes por segundo para simular uma tensão analógica de controle.</li>
+                    </ul>
+                </div>
+                <!-- INSERIDA IMAGEM DO ARDUINO (img1) -->
+                <figure style="margin-top: 20px;">
+                    <img src="imagens/img1.png" alt="Placa Arduino Uno" style="width: 100%;">
+                    <figcaption>Figura 1: O Arduino atua como o controlador central.</figcaption>
+                </figure>
+            </div>
 
-            <h3>Ponte H e Motores DC</h3>
-            <p>A Ponte H, através do driver L298N, controla o sentido de rotação e a velocidade dos motores de corrente contínua (CC). Alterando a polaridade da tensão aplicada ao motor, ela inverte a rotação. Com a Modulação por Largura de Pulso (PWM), também é possível ajustar a tensão média, controlando a velocidade e garantindo um controle preciso do movimento.</p>
+            <h3>2. Atuadores: Ponte H e Motores DC</h3>
+            <p>Para mover o robô, não basta apenas "ligar" o motor. É preciso controlar sentido e torque.</p>
+            <ul>
+                <li><strong>Driver L298N (Ponte H):</strong> O microcontrolador opera com baixa corrente (sinais lógicos de 5V e <40mA). Motores exigem alta corrente (>500mA). O módulo L298N usa a lógica de chaves (transistores) para direcionar a alta corrente das baterias para os motores, permitindo também a <strong>inversão de polaridade</strong> (para o robô ir para frente ou para trás) sem curto-circuitos.</li>
+                <li><strong>Motores TT (Amarelos):</strong> Utilizamos motores de Corrente Contínua com caixas de redução. A redução é vital porque motores DC puros giram muito rápido mas com pouco torque. As engrenagens trocam velocidade por força, necessária para equilibrar o peso do chassis contra a gravidade.</li>
+            </ul>
 
-            <h3>Sensor MPU-6050</h3>
-            <p>O MPU-6050 é uma unidade de medição inercial (IMU) que combina um acelerômetro e um giroscópio. O acelerômetro mede inclinações com base na gravidade, enquanto o giroscópio mede a velocidade de rotação. Como o acelerômetro é sensível a vibrações e o giroscópio acumula erros ao longo do tempo, utilizamos um Filtro Complementar para fundir os dados de ambos, obtendo uma medição de ângulo limpa, estável e confiável para o sistema de controle.</p>
-            <img src="imagens/img2.png" alt="Arduino" style="display: block; margin: 0 auto; width: 300px;">
+            <div class="grid-container" style="margin-bottom: 40px; grid-template-columns: 1fr 2fr; align-items: center;">
+                 <!-- SUBSTITUÍDA PELO SENSOR MPU (img2) PARA CORRESPONDER AO TÍTULO -->
+                 <figure>
+                    <img src="imagens/img2.png" alt="Sensor MPU-6050" style="width: 100%;">
+                    <figcaption>Figura 2: Módulo sensor MPU-6050 (Acelerômetro + Giroscópio).</figcaption>
+                </figure>
+                <div>
+                    <h3>3. Sensoriamento: MPU-6050 e Fusão de Sensores</h3>
+                    <p>O MPU-6050 é um componente MEMS (Micro-Eletromecânico) essencial. Ele não é apenas um sensor, mas combina dois instrumentos físicos distintos:</p>
+                    <ul>
+                        <li><strong>Acelerômetro:</strong> Mede a força da gravidade. Ele sabe onde está o "chão" (Z-axis). <em>Problema:</em> É muito sensível a vibrações do motor e movimentos bruscos.</li>
+                        <li><strong>Giroscópio:</strong> Mede a velocidade angular (o quão rápido o robô está girando). <em>Problema:</em> Sofre de "Drift" (o valor erra com o passar do tempo).</li>
+                    </ul>
+                    <p><strong>A Solução:</strong> O código implementa um <em>Filtro Complementar</em> ou o processador digital DMP interno. Combinamos a estabilidade de longo prazo do acelerômetro com a precisão de curto prazo do giroscópio para obter um ângulo $\theta$ confiável.</p>
+                </div>
+            </div>
 
-            <h3>O Algoritmo PID</h3>
+            <h3>4. Fonte de Alimentação: Baterias Li-Ion</h3>
+            <p>A escolha de baterias de Lítio (18650) não foi estética. Ao contrário de pilhas comuns alcalinas ou baterias de 9V, as células de Li-Ion possuem uma <strong>alta taxa de descarga (C-rate)</strong>. Quando o robô precisa corrigir uma queda súbita, os motores drenam picos altos de corrente instantânea. Baterias mais fracas causariam uma queda de tensão (voltage sag), reiniciando o Arduino no meio da operação.</p>
+
+            <hr style="margin: 40px 0; border-color: #ddd;">
+
+            <h3>Algoritmo PID</h3>
             <p>O controlador PID (Proporcional, Integral, Derivativo) é um sistema que corrige erros para manter a estabilidade. Ele compara constantemente o valor medido (inclinação do robô) com um valor de referência (posição vertical) e calcula o erro. A partir desse erro, ele utiliza três componentes para corrigir a saída:</p>
             <ul>
                 <li><strong>Proporcional (P):</strong> Reage ao erro atual. Quanto maior a inclinação, maior a correção.</li>
@@ -51,12 +86,11 @@
         <div class="autores">
             <p>Cauã S. Vieira | Frank E. C. Barbosa | Gabriel B. Laytynher | Gabriel M. Gomes</p>
         </div>
-        <hr style="width:50%; border-color: #555;">
+        <hr style="width:50%;">
         <div class="orientador">
             <p><strong>Orientador:</strong> Prof. Joel Junior Cordeiro</p>
         </div>
         <p>&copy; 2025</p>
     </footer>
-
 </body>
 </html>
