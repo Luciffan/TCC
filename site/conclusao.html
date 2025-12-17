@@ -20,6 +20,26 @@
         </nav>
     </header>
 
+    <main>
+        <section id="conclusao">
+            <h2>Conclusão</h2>
+            <p>O desenvolvimento deste Trabalho de Conclusão de Curso permitiu consolidar na prática conceitos fundamentais da engenharia de controle, confirmando a complexidade de controlar sistemas inerentemente instáveis como o pêndulo invertido.</p>
+
+            <h3>Êxitos do Projeto</h3>
+            <p>Conseguimos validar com sucesso a <strong>arquitetura lógica e eletrônica</strong>. A comunicação entre o Arduino e o sensor MPU-6050, bem como o cálculo do algoritmo PID, funcionaram conforme a teoria. O sistema foi capaz de reagir à inclinação e tentar corrigir sua postura, comprovando que a malha de controle fechada foi implementada corretamente.</p>
+
+            <h3>Dificuldades e Aprendizados</h3>
+            <p>Apesar da lógica de software correta, o equilíbrio estático perfeito não foi atingido devido a limitações de <strong>Hardware</strong>. Concluímos que:</p>
+            <ul>
+                <li>O desempenho prático é fortemente dependente da qualidade mecânica. A folga (backlash) das caixas de redução dos motores econômicos introduz atrasos que o PID não consegue compensar totalmente.</li>
+                <li>A rigidez estrutural é vital. Vibrações no chassi afetam a leitura dos sensores, criando um ciclo de realimentação de ruído que desestabiliza o robô.</li>
+            </ul>
+
+            <h3>Considerações Finais</h3>
+            <p>O projeto cumpriu seu papel acadêmico ao demonstrar que, para sistemas de dinâmica rápida como este, não basta ter um bom código; é necessário que os atuadores (motores) e a estrutura física tenham precisão compatível com a exigência do controle. Para trabalhos futuros, recomenda-se o uso de motores com encoders e menor folga (zero-backlash) e uma estrutura mais rígida (como acrílico ou impressão 3D).</p>
+        </section>
+    </main>
+
     <footer>
         <div class="autores">
             <p>Cauã S. Vieira | Frank E. C. Barbosa | Gabriel B. Laytynher | Gabriel M. Gomes</p>
